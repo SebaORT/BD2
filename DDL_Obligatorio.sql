@@ -1,11 +1,11 @@
---IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'ObligatorioBD2_GestionMetro')
---BEGIN
---CREATE DATABASE [ObligatorioBD2_GestionMetro];
---END;
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'ObligatorioBD2_GestionMetro')
+BEGIN
+CREATE DATABASE [ObligatorioBD2_GestionMetro];
+END;
 
 
 
---GO
+GO
 
 
 
