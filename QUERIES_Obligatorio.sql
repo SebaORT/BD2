@@ -1,7 +1,15 @@
 USE [ObligatorioBD2_GestionMetro]
 GO
 --a.Mostrar los datos del/los trene/s que pasaron por última vez por una línea-estación
-SELECT * FROM EstacionLineaMetro;
+SELECT * 
+FROM Tren t1
+WHERE t1.Numero IN (
+	SELECT telm1.NumeroTren
+	FROM TrenEstacionLineaMetro telm1
+	GROUP BY telm1.NumeroTren
+	HAVING MAX(telm1.Fecha) <= GETDATE()
+	)
+
 
 --b.Mostrar los datos de las estaciones por las que pasaron más trenes este año que la cantidad promedio de trenes que pasaron en el año anterior.
 SELECT *
@@ -16,3 +24,5 @@ WHERE e1.Codigo IN (
 	FROM TrenEstacionLineaMetro telm2
 	WHERE (telm2.fecha BETWEEN '2021-01-01' AND GETDATE()))
 	)
+
+--c.Mostrar numero de línea, descripción, nombre de la estación inicio, nombre de la estación destino y cantidad de estaciones que la componen.
