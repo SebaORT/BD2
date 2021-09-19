@@ -39,3 +39,29 @@ WHERE l1.longitud = (
 	FROM LineaMetro l2
 	)
 
+--e.Mostrar los datos de las estaciones que están incluidas en líneas de color rojo pero no están incluidas en líneas de color amarillo.
+SELECT e1.*
+FROM Estacion e1
+WHERE (
+e1.Codigo IN (
+		SELECT e2.CodigoEstacion
+		FROM EstacionLineaMetro e2, LineaMetro l1
+		WHERE e2.NumeroLinea = l1.Numero AND l1.CodigoColor = 'ROJO')
+AND e1.codigo NOT IN (SELECT e2.CodigoEstacion
+		FROM EstacionLineaMetro e2, LineaMetro l1
+		WHERE e2.NumeroLinea = l1.Numero AND l1.CodigoColor = 'AMARILLO')
+		)
+
+--f.Mostrar los datos de los trenes que pasaron por todas las estaciones existentes.
+SELECT t1.*
+FROM Tren t1
+WHERE t1.Numero IN (
+	SELECT telm1.NumeroTren
+	FROM TrenEstacionLineaMetro telm1
+	GROUP BY telm1.NumeroTren
+	HAVING COUNT(telm1.CodigoEstacion) = (
+		SELECT COUNT(e1.Codigo)
+		FROM Estacion e1
+		)
+	)
+	
