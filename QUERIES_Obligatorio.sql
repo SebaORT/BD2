@@ -34,16 +34,8 @@ GROUP BY l1.numero, l1.descripcion
 --d.Mostrar los datos de la línea que recorre la distancia más larga
 SELECT l1.*
 FROM LineaMetro l1
-WHERE l1.Numero IN (
-	SELECT e1.NumeroLinea
-	FROM EstacionLineaMetro e1
-	GROUP BY e1.NumeroLinea
-	HAVING COUNT(e1.NumeroLinea) = (
-		SELECT MAX(numEstaciones)
-		FROM (
-			SELECT e2.CodigoEstacion, COUNT(e2.CodigoEstacion) numEstaciones
-			FROM EstacionLineaMetro e2
-			GROUP BY e2.CodigoEstacion
-			)
-		)
+WHERE l1.longitud = (
+	SELECT MAX(l2.longitud)
+	FROM LineaMetro l2
 	)
+
