@@ -7,14 +7,12 @@ SELECT * FROM EstacionLineaMetro;
 SELECT *
 FROM Estacion e1
 WHERE e1.Codigo IN (
-	SELECT tel.codigoEstacion, tel.NumeroTren, SUM(tel.numeroTren), AVG(tel.NumeroTren) AS PromedioAnioAnterior
-	FROM TrenEstacionLineaMetro tel
-	WHERE AVG(tel.NumeroTren) = (
-			SELECT AVG(tel.NumeroTren)
-			FROM TrenEstacionLineaMetro tel
-			GROUP BY tel.codigoEstacion, tel.NumeroTren
-			HAVING (tel.Fecha BETWEEN DAY('2020-01-01') AND DAY('2020-12-31'))
-		)
-	GROUP BY tel.codigoEstacion, tel.NumeroTren
-	HAVING (tel.Fecha BETWEEN DAY('2021-01-01') AND GETDATE())
+	SELECT telm.CodigoEstacion
+	FROM TrenEstacionLineaMetro telm
+	WHERE (telm.fecha BETWEEN '2020-01-01' AND '2020-12-31')
+	GROUP BY telm.CodigoEstacion
+	HAVING COUNT(telm.NumeroTren) > (
+	SELECT COUNT(telm2.NumeroTren)
+	FROM TrenEstacionLineaMetro telm2
+	WHERE (telm2.fecha BETWEEN '2021-01-01' AND GETDATE()))
 	)
