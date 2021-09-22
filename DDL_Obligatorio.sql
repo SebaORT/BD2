@@ -71,7 +71,7 @@ Create Table [dbo].[TrenEstacionLineaMetro]
 [NumeroTren] INT Not Null,
 [Fecha] Date Not Null,
 [Hora] Time Not Null,
-Primary Key(CodigoEstacion,NumeroLinea,NumeroTren)
+Primary Key(CodigoEstacion,NumeroLinea,NumeroTren,Fecha,Hora)
 )
 
 --Restriciones 
