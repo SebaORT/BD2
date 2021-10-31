@@ -14,11 +14,16 @@ CREATE TABLE [dbo].[AuditoriaLineaMetro](
 	[DateAudit] Datetime,
 	[OperationAudit] varchar(100),
 
-	[Estacion] [int] NOT NULL,
-	[Linea] [int] NOT NULL,
-	[Tren] [int] NOT NULL,
-	[Fecha] [date] NOT NULL,
-	[Hora] [time](7) NOT NULL,
+	[Estacion] [int] NULL,
+	[Linea] [int]  NULL,
+	[Tren] [int]  NULL,
+	[Fecha] [date]  NULL,
+	[Hora] [time](7)  NULL,
+	[Estacion_after] [int] NULL,
+	[Linea_after] [int] NULL,
+	[Tren_after] [int] NULL,
+	[Fecha_after] [date] NULL,
+	[Hora_after] [time](7) NULL
 )
 
 go

@@ -128,4 +128,9 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'FK_TrenEs
 ALTER TABLE TrenEstacionLineaMetro ADD CONSTRAINT FK_TrenEstacionLineaMetro_EstacionLineaMetro FOREIGN KEY(CodigoEstacion, NumeroLinea) REFERENCES EstacionLineaMetro(CodigoEstacion, NumeroLinea)
 
 
+ALTER TABLE Estacion 
+ADD CantTrenes int not null
+CONSTRAINT df_CantTrenes DEFAULT 0
+WITH VALUES --Add if Column is Nullable and you want the Default Value for Existing Records.
+
 Commit Transaction
