@@ -30,16 +30,17 @@ END
 
 -- 4b 
 
---CREATE OR ALTER TRIGGER trg_RegistrarPasoTrenes
---ON TrenEstacionLineaMetro
---AFTER insert
---AS
---BEGIN
---declare @CantTrenes int;
+CREATE OR ALTER TRIGGER trg_RegistrarPasoTrenes
+ON TrenEstacionLineaMetro
+AFTER insert
+AS
+BEGIN
 
---select @CantTrenes = Count(*) from inserted
--- PREGUNTAR PROFE
---SELECT  [CodigoEstacion],
---      Count(NumeroTren) CantidadTrenesEstacion
---  FROM inserted
---  group by CodigoEstacion;
+update Estacion set CantTrenes = CantTrenes + 
+ (SELECT  
+      Count(NumeroTren)
+  FROM inserted
+  where CodigoEstacion = Estacion.Codigo
+  group by CodigoEstacion);
+
+END
